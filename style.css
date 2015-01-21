@@ -1,0 +1,296 @@
+th a {
+	text-decoration: underline;
+	font-size:13pt;
+	color: #000;
+}
+th a:hover {
+	text-decoration: underline;
+	font-size:13pt;
+	color: #556699;
+}
+body {
+	
+	font-size: 13pt;
+	background: #F5F5FF url(images/plate3.png) repeat-x;
+}
+html 
+{
+	overflow:hidden;
+}
+
+
+a img {
+    border: 0;
+	text-align:center;
+}
+
+
+h3 {
+	text-decoration: none;
+	font-weight:bold;
+	color: #bb0000;
+	font-size:16pt;
+	text-align:center;
+	width:100%;
+	padding: 0px 0;
+}
+
+h4 {
+	text-decoration: none;
+	font-size:14pt;
+	font-weight:normal;
+	color: #884444;
+	margin:5px 0;
+	padding:0;
+}
+
+h4 input {
+	margin:5px;
+}
+
+a {
+	text-decoration: underline;
+	font-size:14pt;
+	color: #556699;
+	text-align: center;
+}
+
+a:hover {
+	text-decoration: underline;
+	font-size:14pt;
+	color: #662222; /*5566999*/
+}
+
+center {
+	padding:0;
+	margin:0;
+}
+table {
+	border:0;
+	border-color:#F5F5FF;
+	
+}
+
+ul {
+	list-style-type: none;
+	margin-left:0;
+	padding-left:5px;
+	font-size:13pt;
+}
+
+ul li {
+	padding-top:10px;
+	font-weight:bold;
+}
+
+ul p {
+	margin:0;
+	padding:0;
+	padding-left:50px;
+}
+
+textarea {
+	outline: none;
+	-moz-appearance: none;
+	border: 1px solid #556699;
+	padding: 2px;
+	margin: 0 0 2px 0;
+	overflow-x:hidden;
+	font-family: sans-serif;
+	resize: none;
+}
+
+span {
+	padding: 0;
+	padding-right: 20px;
+}
+.right_answer {
+	color: #556699 /*00C832;*/
+}
+
+.fail_answer {
+	color: #FF3300;
+}
+
+.answer_area {
+	outline: none;
+	-moz-appearance: none;
+	border: 1px solid #556699;
+	padding: 2px;
+	margin: 0 0 10px 2px;
+	resize: none;
+}
+
+input {
+	outline: none;
+	margin: 0 0 2px 0;
+	-moz-appearance: none;
+	border: 1px solid #556699; /* указание этого свойства также удалит обводку в FireFox */
+	padding:  2px;
+	margin-right: 5px;
+}
+
+button {
+	outline: none;
+	padding: 2px;
+	margin: 0 3px 10px 3px;
+	-moz-appearance: none;
+	border: 1px solid #556699; /* указание этого свойства также удалит обводку в FireFox */
+}
+
+.clicked_button {
+	border: 2px solid #556699; /* указание этого свойства также удалит обводку в FireFox */
+}
+.nonclicked_button {
+	border: 2px solid #F5F5FF; /* указание этого свойства также удалит обводку в FireFox */
+}
+
+
+/* BLOCKS */
+
+#content
+{
+	
+	clear:both;
+	text-align:center;
+	padding:0;
+	margin:0;
+	width:100%;
+
+}
+
+#header_menu
+{
+	
+	float:left; 
+	clear: both;
+	padding: 12px 0 2px 0;
+	margin: 0;
+	width:100%;
+	height:50px;
+	font-size:14pt;
+	text-align:center;
+	text-decoration: none;
+	font-size:14pt;
+	color: #000 
+	}
+
+#header_menu a {
+	text-decoration: none;
+	color: #556699; /* 556699*/
+}
+
+#header_menu a:hover {
+	text-decoration: underline;
+	/*color: #bb3300;*/
+}
+/*
+.current_page {
+	text-decoration: none;
+	font-size:14pt;
+	color: #000 
+}
+*/
+#action_header {
+	height:40px;
+	width:100%;
+	padding:0 0px 5px 0px;
+	margin:0 0px 5px 0px;
+	overflow:hidden;
+	text-align: center;
+}
+
+#header_content {
+	width:105%;
+	padding:10px 0 25px 0 ;
+	margin: 0 2% 0 -2%;
+	overflow:hidden;
+	/*background: url(images/bck_bottom.png) repeat-x;*/
+}
+
+#left_content_block
+{
+	float:left;
+	overflow:auto;
+	width:100%;
+
+	scrollbar-3dlight-color: #F5F5FF;
+	scrollbar-arrow-color: #F5F5FF;
+	scrollbar-base-color: #F5F5FF;
+	scrollbar-darkshadow-color: #F5F5FF;
+	scrollbar-face-color: #F5F5FF;
+	scrollbar-highlight-color: #F5F5FF;
+	scrollbar-shadow-color: #F5F5FF;
+	scrollbar-track-color: #F5F5FF;
+}
+
+#right_main_block
+{
+	float:right;
+	width:47%;
+	margin: 0 10px 0 0;
+}
+#right_small_block {
+	float: right;
+	width: 100%;
+	padding:  0% 1% 1% 1%;
+	margin: 0 0 1% 0;
+}
+#left_big_block
+{
+	float:left; 
+	width:47%; 
+	margin: 0 0 0 10px; 
+	/*background: #DBE7FF; 
+	border:2px solid #556699;*/
+}
+
+#center_big_block
+{
+	float:left; 
+	height:100px;
+	padding:  0% 1% 1% 1%; 
+	margin: 0 0 0 0; 
+	overflow:auto;
+	clear:both;
+}
+
+.header_title {
+	margin: 0;
+	padding: 0;
+}
+
+/* ДОПОЛНИТЕЛЬНЫЕ БЛОКИ */
+
+#user_name {
+    position: absolute;    
+    left: 30px;
+	top:28px;
+    color: #000000;
+    overflow: hidden;
+    text-align:left;
+    padding:10px;
+}
+
+#js_alert {
+    position: absolute;    
+    left: 30px;
+	top:55px;
+    color: #000000;
+    overflow: hidden;
+    text-align:left;
+    padding:10px;
+}
+
+#pict_box {
+    position: absolute;    
+    right: 3%;
+	top:20px;
+    width:95px;
+	height:80px;
+    
+    overflow: hidden;
+    background:url(images/comp.png);
+    text-align:left;
+    padding:10px;
+}
