@@ -1,3 +1,5 @@
 *.exe
 *.test
 *.prof
+config.php
+connect.php

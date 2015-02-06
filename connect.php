@@ -3,8 +3,8 @@
 
 $server = 'localhost';
 $username = 'root';
-$password = 'ithcnmyfyjce';
-$db_name = 'web_test';
+$password = '';
+$db_name = 'test';
 error_reporting(0);
 //Попытка подключения к серверу
 $connect_srv = mysql_connect ($server,$username,$password);

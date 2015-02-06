@@ -1,5 +1,5 @@
 ﻿<!--Страница со списком доступных для пользователя тестов-->
-<?
+<?php
 header('Content-Type: text/html; charset=utf-8');
 ?>
 

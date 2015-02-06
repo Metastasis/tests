@@ -1,6 +1,6 @@
 ﻿<html>
-<?
-header('Content-Type: text/html; charset=utf-8');
+<?php
+// header('Content-Type: text/html; charset=utf-8');
 ?>
 
 <head>
@@ -10,11 +10,11 @@ header('Content-Type: text/html; charset=utf-8');
 </head>
 <body>
 <div id='pict_box'></div>
-<?
+<?php
 require_once '../config.php';
 $server = 'localhost';
 $username = 'root';
-$password = 'root';
+$password = '';
 
 if (!isset($_POST['do_install']))
 {
@@ -28,20 +28,20 @@ if (!isset($_POST['do_install']))
 			<input type='submit' name='do_install' value='Создать БД' >
 			<p>Рекомендуется удалить файл с web-сервера после окончания установки.</p>
 		</center>
-		</div>";
+		</div>
+		</form>";
 
 	
 }	
 else
 {
 	
-	
 	$connect_srv = mysql_connect ($server,$username,$password) or die (">Ошибка подключения к серверу.<br>");
-	echo ">Подключение к сервер произведено успешно.<br>";
+	echo ">Подключение к серверу произведено успешно.<br>";
 
-	$create_db = mysql_query ("CREATE DATABASE `".$_POST['db_name']."` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;")
-	or die (">Ошибка создания новой базы данных.<br>");
-	echo '>База данных создана.<br>';
+	// $create_db = mysql_query ("CREATE DATABASE `".$_POST['db_name']."` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;")
+	// or die (">Ошибка создания новой базы данных.<br>");
+	// echo '>База данных создана.<br>';
 	
 	$choose_new_db = mysql_select_db ($_POST['db_name']) or die (">Ошибка выбора базы данных");
 	echo ">База данных выбрана.<br>";
@@ -66,7 +66,7 @@ else
 		`USERGROUP` ,
 		`USERVARIANT` 
 		)
-		VALUES (NULL , 'admin', 'admin', '".$admin_write."', '1');") or die (">Ошибка добавления записи администратора.");
+		VALUES (NULL , 'admin', 'admin', 'admin', '1');") or die (">Ошибка добавления записи администратора.");
 	echo ">Добавлен профиль admin с паролем admin.<br>";
 
 	$create_test_list = mysql_query("
@@ -118,8 +118,7 @@ else
 		) ENGINE = MYISAM") or die (">Ошибка создания таблицы DISCIPLINE.<br>");
 	echo ">Таблица DISCIPLINE создана.<br>";
 	
-	echo ">Завершение работы программы.<br>
-		  <a href='installer.php'>На главную</a>";
+	echo '<META HTTP-EQUIV=Refresh CONTENT="5; index.php">';
 	}
 ?>
 </body>

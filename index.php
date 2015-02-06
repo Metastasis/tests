@@ -1,5 +1,5 @@
 ﻿<!--Страница авторизации пользователей в системе-->
-<?
+<?php
 header('Content-Type: text/html; charset=utf-8');
 ?>
 
@@ -107,7 +107,7 @@ if(isset($_POST['submit']))
 ?>
 
 
-<?
+<?php
 if(isset($_GET['alert']))
 {
 	echo '<script>alert("Неавторизованные пользователи не могут выполнять это действие!");</script>';
