@@ -1,6 +1,6 @@
 ﻿<!--Страница авторизации пользователей в системе-->
 <?php
-header('Content-Type: text/html; charset=utf-8');
+// header('Content-Type: text/html; charset=utf-8');
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"  "http://www.w3.org/TR/html4/strict.dtd">
@@ -21,7 +21,7 @@ header('Content-Type: text/html; charset=utf-8');
 
 <h3>Авторизация</h3>
 <!--Форма ввода-->
-<form method="POST">
+<form method="POST" id="login_form">
 	<table  cellpadding="5" cellspacing="4"> 
 	<tr align='left'>
 		<td>Введите свой логин:</td>

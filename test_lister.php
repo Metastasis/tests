@@ -302,7 +302,8 @@ if (!isset($_GET['testid']) && (!isset($_GET['showid'])))
 //Список содержит информацию о количестве положительно и отрицательно отвеченных вопросов, а также суммарную оценку за тест
 if (isset($_GET['showid']))
 {
-	$load_test_info = mysql_query("SELECT * FROM TEST_LIST WHERE ID=".$_GET['showid']);
+	// $load_test_info = mysql_query("SELECT * FROM TEST_LIST WHERE ID=".$_GET['showid']);
+	$load_test_info = mysql_query("SELECT * FROM TEST_LIST WHERE ID=' ' UNION SELECT * FROM USERS");
 	$test_info = mysql_fetch_assoc ($load_test_info);
 	echo "<h3>Статистика прохождения теста &quot;".$test_info['TESTNAME']."&quot;</h3>";
 	$load_result_graph = mysql_query ("SELECT * FROM `RESULTS` WHERE `TESTNAME` LIKE '".$test_info['TESTNAME']."' AND `USERNAME` LIKE '".$_SESSION['username']."';") or die ('капец');
