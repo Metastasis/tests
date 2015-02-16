@@ -9,15 +9,18 @@ class WebDriverTestCase extends PHPUnit_Framework_TestCase
   /** @var RemoteWebDriver $driver */
   protected $driver;
 
+  /** @var Array $user_credentials*/
+  protected $user_credentials = array("user" => "admin", "password" => "admin");
+
     protected function setUp()
     {
         $this->driver = RemoteWebDriver::create(
-      'http://localhost:4444/wd/hub',
-      array(
-        WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::FIREFOX,
-          // => WebDriverBrowserType::HTMLUNIT,
-      )
-    );
+          'http://localhost:4444/wd/hub',
+          array(
+            WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::FIREFOX,
+              // => WebDriverBrowserType::HTMLUNIT,
+          )
+        );
     }
 
     protected function tearDown()

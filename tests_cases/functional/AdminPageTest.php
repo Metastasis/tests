@@ -22,14 +22,14 @@ class AdminPageTest extends WebDriverTestCase
 
     public function testAuthFormShouldBeOk()
     {
-        $this->login("admin", "admin");
+        $this->login($this->user_credentials["user"], $this->user_credentials["password"]);
 
         self::assertEquals('Панель администрирования', $this->driver->getTitle());
     }
 
     public function testCreateNewSpecialityThenDeleteItShouldBeOk()
     {
-        $this->login("admin", "admin");
+        $this->login($this->user_credentials["user"], $this->user_credentials["password"]);
 
         $this->driver->get($this->getTestPath('admin.php?spec=1&create=1'));
 
@@ -55,7 +55,7 @@ class AdminPageTest extends WebDriverTestCase
 
     public function testCreateNewDisciplineThenDeleteItShouldBeOk()
     {
-        $this->login("admin", "admin");
+        $this->login($this->user_credentials["user"], $this->user_credentials["password"]);
 
         $this->driver->get($this->getTestPath('admin.php?disc=1&create=1'));
 
@@ -78,5 +78,47 @@ class AdminPageTest extends WebDriverTestCase
         $this->driver->switchTo()->alert()->accept();
         
         self::assertEquals(true, $a_tag_after_exec->equals($a_tag));
+    }
+
+    public function testCreateNewTestShouldBeOk()
+    {
+    	//TO-DO: этот тест будет валиться до тех пор, пока не починится скролл
+    	$this->login($this->user_credentials["user"], $this->user_credentials["password"]);
+
+    	$this->driver->get($this->getTestPath('admin/test_list.php?create=1'));
+
+    	$elements = WebDriverBy::cssSelector('form input');
+  		$input_elements = $this->driver->findElements($elements);
+
+  		$textarea_name = WebDriverBy::name('test_name');
+  		$textarea = $this->driver->findElement($textarea_name);
+  		$textarea->sendKeys("Простой тест");
+
+  		$input_elements[0]->click();
+  		$input_elements[3]->sendKeys("ОИТ18к, ОИТ17");
+  		$input_elements[6]->click();
+  		$input_elements[8]->sendKeys("test");
+  		$input_elements[13]->sendKeys("3");
+  		$input_elements[18]->click();
+
+			$xpath_selector = WebDriverBy::xpath('//td[text()="Простой тест"]');
+      $td_tag       = $this->driver->findElement($xpath_selector);
+      print($td_tag->getText());
+  		self::assertEquals("Простой тест", $td_tag->getText());
+    }
+
+    public function testDeleteNewTestShouldBeOk()
+    {
+    	$this->login($this->user_credentials["user"], $this->user_credentials["password"]);
+
+    	$this->driver->get($this->getTestPath('admin/test_list.php'));
+
+    	$xpath_selector = WebDriverBy::xpath('//td[text()="Простой тест"]/../td/a[@title="Удалить тест"]');
+      $a_tag        = $this->driver->findElement($xpath_selector);
+
+      $link = $a_tag->getAttribute("href");
+      $this->driver->get($link);
+
+      $this->driver->switchTo()->alert()->accept();
     }
 }

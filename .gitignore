@@ -4,5 +4,4 @@
 config.php
 connect.php
 /vendor/
-composer.lock
 data/useractionlog.txt
