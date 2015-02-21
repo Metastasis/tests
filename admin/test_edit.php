@@ -84,7 +84,7 @@ if(isset($_GET['close']))
 </div>
 
 <div id='content'>
-<?
+<?php
 //Показ варианта на экране, если всего их больше 1
 if ($test_name['TESTVARIANT'] > 1)
 {
@@ -95,7 +95,7 @@ echo "<h3>Список вопросов теста &quot;".$test_name['TESTNAME'
 	<div id='action_header'>
 		<a href='test_edit.php'>Cоздать вопрос</a> | 
 		<a href='test_edit.php?move_quest=1'>Переставить вопросы местами</a>
-<?
+<?php
 //Вывод ссылок для выбора других вариантов теста
 	for ($a=1; $a<=$test_name['TESTVARIANT'];$a++)
 	{
@@ -108,7 +108,7 @@ echo "<h3>Список вопросов теста &quot;".$test_name['TESTNAME'
 	</div>
 </div>
 <div id='left_big_block'>
-<?
+<?php
 //Вывод списка вопросов на экран
 $load_test = mysql_query("SELECT * FROM `".$_SESSION['test_table']."` ORDER BY ID") or die ("эпик фейл");
 if (mysql_num_rows($load_test)>0) 
@@ -798,6 +798,9 @@ if (isset($_GET['editquestid']) && ($_GET['editaction']=='2'))
 //Удаление ответа из списка
 if (isset($_GET['delanswerid']))
 {
+	$load_list = mysql_query("SELECT * FROM ".$_SESSION['test_table']." WHERE ID=".$_GET['editquestid']);
+	$answer = mysql_fetch_assoc($load_list);
+	
 	$answers = explode ("",$answer['ANSWERS']);
 
 	$ans_lenght = count($answers);

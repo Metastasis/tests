@@ -20,6 +20,7 @@ class AdminTestsListTest extends WebDriverTestCase
   		$input_elements[6]->click();
   		$input_elements[8]->sendKeys("test");
   		$input_elements[13]->sendKeys("3");
+
   		$input_elements[18]->click();
 
 			$xpath = WebDriverBy::xpath('//td[text()="Простой тест"]');
@@ -60,6 +61,7 @@ class AdminTestsListTest extends WebDriverTestCase
 
       $input_elements[0]->click();
       $input_elements[1]->sendKeys("Простой тест");
+
       $input_elements[2]->click();
 
       $xpath = WebDriverBy::xpath('//td[text()="Простой тест"]');
@@ -86,6 +88,7 @@ class AdminTestsListTest extends WebDriverTestCase
 
       $submit_button_name = WebDriverBy::name('accept_edit');
       $submit_button = $this->driver->findElement($submit_button_name);
+      
       $submit_button->click();
 
       $xpath = WebDriverBy::xpath('//td[text()="TESTGROUP ОИТ19к"]');
