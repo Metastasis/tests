@@ -18,7 +18,7 @@
             <directory>./unit</directory>
         </testsuite> -->
         <testsuite name="Admin Page Functional Testsuite">
-            <file>./functional/AdminPageTest.php</file>
+            <directory>./functional</directory>
         </testsuite>
     </testsuites>
 

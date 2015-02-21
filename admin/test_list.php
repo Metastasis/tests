@@ -638,10 +638,9 @@ if ( $_GET['create']=='1' || isset($_GET['editid']))
 		<p>
 		<input type="submit" name="create_test" value=" Создать новый тест ">
 		<input type="submit" name="cancel_action" value=" Отмена "></p>
-		
-		</form>
 		';
 	}
+	echo '</form>';
 }
 
 //Добавление нового теста в таблицу
