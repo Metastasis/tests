@@ -721,6 +721,7 @@ switch( $report )
 }
 
 ?>
+</center>
 </form>
 </body>
 </html>

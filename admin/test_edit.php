@@ -182,6 +182,7 @@ else
 	echo "</div>";
 	echo "</div>";
 }
+
 //Правая сторона страницы
 echo "<div id='right_main_block'>";
 

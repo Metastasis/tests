@@ -1,15 +1,15 @@
 <?php
-//Ôàéë ïîäêëþ÷åíèÿ ê áàçå äàííûõ
+//Ð¤Ð°Ð¹Ð» Ð¿Ð¾Ð´ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ñ Ðº Ð±Ð°Ð·Ðµ Ð´Ð°Ð½Ð½Ñ‹Ñ…
 
 $server = 'localhost';
 $username = 'root';
 $password = '';
 $db_name = 'test';
 error_reporting(0);
-//Ïîïûòêà ïîäêëþ÷åíèÿ ê ñåðâåðó
+//ÐŸÐ¾Ð¿Ñ‹Ñ‚ÐºÐ° Ð¿Ð¾Ð´ÐºÐ»ÑŽÑ‡ÐµÐ½Ð¸Ñ Ðº ÑÐµÑ€Ð²ÐµÑ€Ñƒ
 $connect_srv = mysql_connect ($server,$username,$password);
-$use_table = mysql_select_db ($db_name); //Ïîïûòêà âûáîðà èñïîëüçóåìîé áàçû äàííûõ
+$use_table = mysql_select_db ($db_name); //ÐŸÐ¾Ð¿Ñ‹Ñ‚ÐºÐ° Ð²Ñ‹Ð±Ð¾Ñ€Ð° Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼Ð¾Ð¹ Ð±Ð°Ð·Ñ‹ Ð´Ð°Ð½Ð½Ñ‹Ñ…
 
-mysql_query("SET NAMES utf8"); //Èñïîëüçîâàíèå èìåí òîëüêî â êîäèðîâêå UTF8
+mysql_query("SET NAMES utf8"); //Ð˜ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð¸Ð¼ÐµÐ½ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ð² ÐºÐ¾Ð´Ð¸Ñ€Ð¾Ð²ÐºÐµ UTF8
 
 ?>

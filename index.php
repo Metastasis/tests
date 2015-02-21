@@ -17,10 +17,11 @@ header('Content-Type: text/html; charset=utf-8');
 </div>
 
 <div id='content' align=center>
-<center>
+
 
 <h3>Авторизация</h3>
 <!--Форма ввода-->
+<center>
 <form method="POST">
 	<table  cellpadding="5" cellspacing="4"> 
 	<tr align='left'>
@@ -39,7 +40,7 @@ header('Content-Type: text/html; charset=utf-8');
 </form>  
 	<p>Авторизоваться могут только заранее зарегистрированные пользователи!</p>
 </div>
-
+</center>
 <?php
 session_start();
 require_once 'connect.php';
@@ -114,8 +115,8 @@ if(isset($_GET['alert']))
 }
 
 ?>
-</center>
-</div>
+
+
 
 </body>
 </html>
