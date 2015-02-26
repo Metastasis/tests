@@ -68,8 +68,6 @@ if (isset($_GET['resultid']))
 	echo prepear_readed_answer($log['TESTLOG']);
 }
 ?>
-</form>
-</div>
-</div>
+
 </body>
 </html>

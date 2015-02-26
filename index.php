@@ -14,10 +14,11 @@
 </div>
 
 <div id='content' align=center>
-<center>
+
 
 <h3>Авторизация</h3>
 <!--Форма ввода-->
+<center>
 <form method="POST" id="login_form">
 	<table  cellpadding="5" cellspacing="4"> 
 	<tr align='left'>
@@ -36,7 +37,7 @@
 </form>  
 	<p>Авторизоваться могут только заранее зарегистрированные пользователи!</p>
 </div>
-
+</center>
 <?php
 session_start();
 require_once 'connect.php';
@@ -111,8 +112,8 @@ if(isset($_GET['alert']))
 }
 
 ?>
-</center>
-</div>
+
+
 
 </body>
 </html>
