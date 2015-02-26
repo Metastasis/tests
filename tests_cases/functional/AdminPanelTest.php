@@ -21,8 +21,8 @@ class AdminPanelTest extends WebDriverTestCase
 
         $this->driver->get($this->getTestPath('admin.php?spec=1&create=1'));
 
-      	$elements = WebDriverBy::cssSelector('form input');
-    		$input_elements = $this->driver->findElements($elements);
+        $elements = WebDriverBy::cssSelector('form input');
+        $input_elements = $this->driver->findElements($elements);
 
         $input_elements[0]->sendKeys("Ультра крутая новая специальность");
         $input_elements[1]->sendKeys("99999999");
@@ -48,7 +48,7 @@ class AdminPanelTest extends WebDriverTestCase
         $this->driver->get($this->getTestPath('admin.php?disc=1&create=1'));
 
         $elements = WebDriverBy::cssSelector('form input');
-    		$input_elements = $this->driver->findElements($elements);
+        $input_elements = $this->driver->findElements($elements);
 
         $input_elements[0]->sendKeys("Нанопротезирование");
         $input_elements[1]->sendKeys("НПртз");
@@ -64,7 +64,7 @@ class AdminPanelTest extends WebDriverTestCase
 
         $a_tag_after_exec = $a_tag->click();
         $this->driver->switchTo()->alert()->accept();
-        
+
         self::assertEquals(true, $a_tag_after_exec->equals($a_tag));
     }
 }

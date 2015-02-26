@@ -5,12 +5,11 @@
  */
 class WebDriverTestCase extends PHPUnit_Framework_TestCase
 {
+	  /** @var RemoteWebDriver $driver */
+	  protected $driver;
 
-  /** @var RemoteWebDriver $driver */
-  protected $driver;
-
-  /** @var Array $user_credentials*/
-  protected $user_credentials = array("user" => "admin", "password" => "admin");
+	  /** @var Array $user_credentials*/
+	  protected $user_credentials = array("user" => "admin", "password" => "admin");
 
     protected function setUp()
     {
@@ -29,7 +28,7 @@ class WebDriverTestCase extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get the URL of the test html.
+     * Get the URL of the index page.
      *
      * @param $path
      * @return string
@@ -39,9 +38,16 @@ class WebDriverTestCase extends PHPUnit_Framework_TestCase
         return 'http://localhost/tests/'.$path;
     }
 
+    /**
+     * Login into the system via form.
+     *
+     * @param $user
+     * @param $password
+     */
     protected function login($user, $password)
     {
         $this->driver->get($this->getTestPath(''));
+
         $elements = WebDriverBy::cssSelector('form input');
         $input_elements = $this->driver->findElements($elements);
 
