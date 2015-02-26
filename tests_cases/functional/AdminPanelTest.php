@@ -29,9 +29,9 @@ class AdminPanelTest extends WebDriverTestCase
         $input_elements[2]->sendKeys("Уруру");
         $input_elements[3]->click();
 
-        $href_value   = 'admin.php?spec=1&deleteid=99999999';
+        $href_value = 'admin.php?spec=1&deleteid=99999999';
         $css_selector = WebDriverBy::cssSelector('a[href="'.$href_value.'"]');
-        $a_tag        = $this->driver->findElement($css_selector);
+        $a_tag = $this->driver->findElement($css_selector);
 
         self::assertEquals($this->getTestPath('').$href_value, $a_tag->getAttribute('href'));
 
@@ -55,12 +55,12 @@ class AdminPanelTest extends WebDriverTestCase
         $input_elements[2]->click();
 
         $css_selector = WebDriverBy::cssSelector('tr:last-child');
-        $tr_tag       = $this->driver->findElement($css_selector);
+        $tr_tag = $this->driver->findElement($css_selector);
 
         self::assertEquals("Нанопротезирование НПртз", $tr_tag->getText());
 
         $css_selector = WebDriverBy::cssSelector('tr:last-child a');
-        $a_tag       = $this->driver->findElement($css_selector);
+        $a_tag = $this->driver->findElement($css_selector);
 
         $a_tag_after_exec = $a_tag->click();
         $this->driver->switchTo()->alert()->accept();

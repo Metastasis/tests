@@ -115,7 +115,7 @@ class AdminTestsListTest extends WebDriverTestCase
         $this->driver->get($this->getTestPath('admin/test_list.php'));
 
         $xpath = WebDriverBy::xpath('//td[text()="Простой тест"]/../td/a[@title="Удалить тест"]');
-        $a_tag        = $this->driver->findElement($xpath);
+        $a_tag = $this->driver->findElement($xpath);
 
         $link = $a_tag->getAttribute("href");
         $this->driver->get($link);
