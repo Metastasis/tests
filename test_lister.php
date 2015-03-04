@@ -70,7 +70,7 @@ $current_date_for_view = convert_data_for_user ($current_date);
 //Предварительная проверка параметров теста
 if (isset($_GET['testid']))
 {
-	$load_list = mysql_query("SELECT * FROM `TEST_LIST` WHERE `ID`=".$_GET['testid']);
+	$load_list = mysql_query("SELECT * FROM `TEST_LIST` WHERE `ID`=".mysql_real_escape_string($_GET['testid']));
 	$test_list = mysql_fetch_assoc ($load_list);
 	
 	
