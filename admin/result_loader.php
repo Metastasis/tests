@@ -52,7 +52,7 @@ if(isset($_GET['close']))
 <?php
 if (isset($_GET['resultid']))
 {
-	$load_list = mysql_query("SELECT * FROM RESULTS WHERE ID =".$_GET['resultid']);
+	$load_list = mysql_query("SELECT * FROM RESULTS WHERE ID =".mysql_real_escape_string($_GET['resultid']));
 	$log = mysql_fetch_assoc($load_list);
 	
 	$fail_answers = $log['RESALL'] - $log['RESRIGHT'];

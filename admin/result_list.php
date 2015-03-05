@@ -208,7 +208,7 @@ if (isset($_GET['deleteid']))
 if (isset($_GET['deleteidaccepted']))
 {
 	$delete_test = mysql_query("
-	DELETE FROM `results` WHERE `results`.`ID` = ".$_GET['deleteidaccepted']." LIMIT 1 ");
+	DELETE FROM `results` WHERE `results`.`ID` = ".mysql_real_escape_string($_GET['deleteidaccepted'])." LIMIT 1 ");
 	header ('Location: result_list.php');
 }
 

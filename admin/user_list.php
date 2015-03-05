@@ -197,7 +197,7 @@ if (isset($_GET['deleteid']))
 if (isset($_GET['deleteidaccepted']))
 {
 	$delete_user = mysql_query("
-	DELETE FROM `users` WHERE `users`.`ID` = ".$_GET['deleteidaccepted']." LIMIT 1 ");
+	DELETE FROM `users` WHERE `users`.`ID` = ".mysql_real_escape_string($_GET['deleteidaccepted'])." LIMIT 1 ");
 	echo '<META HTTP-EQUIV=Refresh CONTENT="0; user_list.php">';
 }	
 
@@ -470,7 +470,7 @@ if (isset($_GET['create']) || isset($_GET['editid']))
 	//Проверка правильности ввода значений
 	if (isset($_POST['create_user']) || isset($_POST['edit_user']))
 	{
-		$usernames = mysql_query ("SELECT `ID` FROM USERS WHERE `USERNAME` LIKE '".$_POST['username']."'"); 
+		$usernames = mysql_query ("SELECT `ID` FROM USERS WHERE `USERNAME` LIKE '".mysql_real_escape_string($_POST['username'])."'"); 
 		
 		$validate_user_list = true;
 		if ($_POST['username']== '')
@@ -529,7 +529,7 @@ if (isset($_GET['create']) || isset($_GET['editid']))
 	//Автоматическое заполнение форм ввода. Работает только в случаех, если пользователь редактируется, или поля были заполнены неправильно
 	if (isset($_GET['editid']))
 	{
-		$load_list = mysql_query("SELECT * FROM USERS WHERE ID=".$_GET['editid']);
+		$load_list = mysql_query("SELECT * FROM USERS WHERE ID=".mysql_real_escape_string($_GET['editid']));
 		$user_list = mysql_fetch_assoc($load_list);
 		
 		$value_username = "value='".$user_list['USERNAME']."'";
@@ -645,11 +645,11 @@ if (isset($_POST['edit_user']) && $validate_user_list == true)
 	}
 	$edit_user = mysql_query("
 	UPDATE  .`users`
-	SET `USERNAME` = '".$_POST['username']."',
-	`USERPASS` = '".$_POST['userpass']."',
-	`USERGROUP` = '".$_POST['usergroup']."',
-	`USERVARIANT` = '".$_POST['uservariant']."'
-	WHERE `users`.`ID` =".$_GET['editid']." LIMIT 1 ;");
+		SET `USERNAME` = '".mysql_real_escape_string($_POST['username'])."',
+	`USERPASS` = '".mysql_real_escape_string($_POST['userpass'])."',
+	`USERGROUP` = '".mysql_real_escape_string($_POST['usergroup'])."',
+	`USERVARIANT` = '".mysql_real_escape_string($_POST['uservariant'])."'
+	WHERE `users`.`ID` =".mysql_real_escape_string($_GET['editid'])." LIMIT 1 ;");
 	echo '<META HTTP-EQUIV=Refresh CONTENT="0; user_list.php">';
 	
 }
@@ -672,7 +672,10 @@ if (isset($_POST['create_user']) && $validate_user_list == true)
 	
 	$create_user = mysql_query("
 	INSERT INTO  .`users` 
-	VALUES (NULL , '".$_POST['username']."', '".$_POST['userpass']."', '".$_POST['usergroup']."', '".$_POST['uservariant']."'); ")or die ("ошибка");
+	VALUES (NULL , '".mysql_real_escape_string($_POST['username'])."',
+	'".mysql_real_escape_string($_POST['userpass'])."',
+	'".mysql_real_escape_string($_POST['usergroup'])."',
+	'".mysql_real_escape_string($_POST['uservariant'])."'); ")or die ("ошибка");
 	header ('Location: user_list.php');
 }
 

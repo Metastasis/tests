@@ -215,8 +215,8 @@ if (isset($_GET['spec']))
 		if (isset($_POST['accept_add']))
 		{
 			$validate_add_spec = true;
-			$load_number = mysql_query("SELECT `ID` FROM `speciality` WHERE ID=".$_POST['spec_num']);
-			$load_short = mysql_query("SELECT `ID` FROM `speciality` WHERE `SHORT` LIKE '".$_POST['spec_short']."'");
+			$load_number = mysql_query("SELECT `ID` FROM `speciality` WHERE ID=".mysql_real_escape_string($_POST['spec_num']);
+			$load_short = mysql_query("SELECT `ID` FROM `speciality` WHERE `SHORT` LIKE '".mysql_real_escape_string($_POST['spec_short'])."'");
 			
 			if ($_POST['spec_name']=='')
 			{
@@ -249,17 +249,17 @@ if (isset($_GET['spec']))
 			if ($validate_add_spec == true)
 			{
 				$insert_spec = mysql_query ("INSERT INTO  .`speciality` VALUES (
-				'".$_POST['spec_num']."',
-				'".$_POST['spec_name']."',
-				'".$_POST['spec_short']."'
+				'".mysql_real_escape_string($_POST['spec_num'])."',
+				'".mysql_real_escape_string($_POST['spec_name'])."',
+				'".mysql_real_escape_string($_POST['spec_short'])."'
 				);") or die ("ошибка фатальная");
 				echo '	<META HTTP-EQUIV=Refresh CONTENT="0; admin.php?spec=1">';			
 			}
 			else
 			{
-				$value_spec_name = "value='".$_POST['spec_name']."'";
-				$value_spec_num = "value='".$_POST['spec_num']."'";
-				$value_spec_short = "value='".$_POST['spec_short']."'";
+				$value_spec_name = "value='".htmlspecialchars($_POST['spec_name'])."'";
+				$value_spec_num = "value='".htmlspecialchars($_POST['spec_num'])."'";
+				$value_spec_short = "value='".htmlspecialchars($_POST['spec_short'])."'";
 			}
 		}
 		//Форма добавления специальности.
@@ -307,7 +307,7 @@ if (isset($_GET['spec']))
 	//Удаление специальности. Запускается, если нажата кнопка "Да" в сплывающем окне
 	if (isset($_GET['deleteidaccepted']))
 	{
-		$delete_spec = mysql_query ("DELETE FROM `speciality` WHERE `ID`=".$_GET['deleteidaccepted']) or die ("Ошибка");
+		$delete_spec = mysql_query ("DELETE FROM `speciality` WHERE `ID`=".mysql_real_escape_string($_GET['deleteidaccepted'])) or die ("Ошибка");
 		header('Location:admin.php?spec=1');
 	}
 	
@@ -370,7 +370,7 @@ if (isset($_GET['disc']))
 		if (isset($_POST['accept_add']))
 		{
 			$validate_add_disc = true;
-			$load_short = mysql_query("SELECT `ID` FROM `discipline` WHERE `SHORT` LIKE '".$_POST['disc_short']."'");
+			$load_short = mysql_query("SELECT `ID` FROM `discipline` WHERE `SHORT` LIKE '".mysql_real_escape_string($_POST['disc_short'])."'");
 			
 			if ($_POST['disc_name']=='')
 			{
@@ -393,16 +393,16 @@ if (isset($_GET['disc']))
 			{
 				$insert_disc = mysql_query ("INSERT INTO  .`discipline` VALUES (
 				NULL,
-				'".$_POST['disc_name']."',
-				'".$_POST['disc_short']."'
+				'".mysql_real_escape_string($_POST['disc_name'])."',
+				'".mysql_real_escape_string($_POST['disc_short'])."'
 				);") or die ("ошибка фатальная");
 				echo '	<META HTTP-EQUIV=Refresh CONTENT="0; admin.php?disc=1">';			
 			}
 			else
 			{
-				$value_disc_name = "value='".$_POST['disc_name']."'";
-				$value_disc_num = "value='".$_POST['disc_num']."'";
-				$value_disc_short = "value='".$_POST['disc_short']."'";
+				$value_disc_name = "value='".htmlspecialchars($_POST['disc_name'])."'";
+				$value_disc_num = "value='".htmlspecialchars($_POST['disc_num'])."'";
+				$value_disc_short = "value='".htmlspecialchars($_POST['disc_short'])."'";
 			}
 		}
 		//Вывод формы добавления дисциплины
@@ -447,7 +447,7 @@ if (isset($_GET['disc']))
 	//Подтверждение удаления
 	if (isset($_GET['deleteidaccepted']))
 	{
-		$delete_disc = mysql_query ("DELETE FROM `discipline` WHERE `ID`=".$_GET['deleteidaccepted']) or die ("Ошибка");
+		$delete_disc = mysql_query ("DELETE FROM `discipline` WHERE `ID`=".mysql_real_escape_string($_GET['deleteidaccepted'])) or die ("Ошибка");
 		header('Location:admin.php?disc=1');
 	}
 

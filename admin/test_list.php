@@ -202,7 +202,7 @@ if (!isset($_GET['create']) && !isset($_GET['editid']) && !isset($_GET['filter']
 if (isset($_GET['deleteid']))
 {
 
-	$load_list = mysql_query("SELECT `TESTNAME` FROM TEST_LIST WHERE ID=".$_GET['deleteid']);
+	$load_list = mysql_query("SELECT `TESTNAME` FROM TEST_LIST WHERE ID=".mysql_real_escape_string($_GET['deleteid']));
 	$test_list = mysql_fetch_assoc($load_list);
 	echo  '
 	
@@ -216,7 +216,7 @@ if (isset($_GET['deleteid']))
 //Удаление записи в таблице TEST_LIST и всех вариантов для выбранного теста
 if (isset($_GET['deleteidaccepted']))
 {
-	$load_list = mysql_query("SELECT * FROM TEST_LIST WHERE ID=".$_GET['deleteidaccepted']);
+	$load_list = mysql_query("SELECT * FROM TEST_LIST WHERE ID=".mysql_real_escape_string($_GET['deleteidaccepted']));
 	$test_list = mysql_fetch_assoc($load_list);
 	
 	for ($a=1; $a<= $test_list['TESTVARIANT']; $a++)
@@ -225,7 +225,7 @@ if (isset($_GET['deleteidaccepted']))
 	}
 	
 	$delete_test = mysql_query("
-	DELETE FROM `test_list` WHERE `test_list`.`ID` = ".$_GET['deleteidaccepted']." LIMIT 1 ");
+	DELETE FROM `test_list` WHERE `test_list`.`ID` = ".mysql_real_escape_string($_GET['deleteidaccepted'])." LIMIT 1 ");
 	
 	echo '<META HTTP-EQUIV=Refresh CONTENT="0; test_list.php">';
 }
@@ -233,7 +233,7 @@ if (isset($_GET['deleteidaccepted']))
 //Пробный запуск теста. Генерирует последовательность вопросов и перенаправляет на странциу прохождения теста
 if (isset($_GET['initid']))
 {
-	$load_list = mysql_query("SELECT * FROM TEST_LIST WHERE ID=".$_GET['initid']);
+	$load_list = mysql_query("SELECT * FROM TEST_LIST WHERE ID=".mysql_real_escape_string($_GET['initid']));
 	$test_info = mysql_fetch_assoc ($load_list);
 	if ($test_info['TESTCOUNT'] == 1)
 	{
@@ -371,7 +371,7 @@ if ( $_GET['create']=='1' || isset($_GET['editid']))
 	if (isset($_POST['create_test']) || isset($_POST['accept_edit']))
 	{
 		$validate_test = true;
-		$testnames = mysql_query ("SELECT `ID` FROM TEST_LIST WHERE `TESTNAME` LIKE '".$_POST['test_name']."'"); 
+		$testnames = mysql_query ("SELECT `ID` FROM TEST_LIST WHERE `TESTNAME` LIKE '".mysql_real_escape_string($_POST['test_name'])."'"); 
 		//print_r($_POST);
 		if ($_POST['test_name'] == '')
 		{
@@ -450,7 +450,7 @@ if ( $_GET['create']=='1' || isset($_GET['editid']))
 	if (isset($_GET['editid']))
 	{
 	
-		$load_test_props = mysql_query("SELECT * FROM TEST_LIST WHERE ID=".$_GET['editid']);
+		$load_test_props = mysql_query("SELECT * FROM TEST_LIST WHERE ID=".mysql_real_escape_string($_GET['editid']));
 		$test_prop = mysql_fetch_assoc($load_test_props);
 		
 		if ($test_prop['TESTDATE'] == '0000-00-00')
@@ -664,15 +664,17 @@ if (isset($_POST['create_test']) && isset($validate_test) && $validate_test == t
 	$add_to_test_list = mysql_query ("INSERT INTO  `test_list` 
 	VALUES (
 	NULL ,
-	'".$_POST['test_name']."', 
+	'".mysql_real_escape_string($_POST['test_name'])."', 
 	'".$test_table."', 
-	'".$_POST['test_pass']."', 
-	'".$_POST['ball5']."', '".$_POST['ball4']."', '".$_POST['ball3']."', 
-	'".$_POST['test_groups']."', 
+	'".mysql_real_escape_string($_POST['test_pass'])."', 
+	'".mysql_real_escape_string($_POST['ball5'])."', 
+	'".mysql_real_escape_string($_POST['ball4'])."',
+	'".mysql_real_escape_string($_POST['ball3'])."', 
+	'".mysql_real_escape_string($_POST['test_groups'])."',
 	'".$write_test_mode."', 
-	'".$_POST['test_date']."', 
-	'".$_POST['test_variant']."', 
-	'".$_POST['test_count']."'
+	'".mysql_real_escape_string($_POST['test_date'])."', 
+	'".mysql_real_escape_string($_POST['test_variant'])."', 
+	'".mysql_real_escape_string($_POST['test_count'])."'
 	);") or die ('<h3>капец</h3>');
 	
 	for ($i=1; $i<=$_POST['test_variant']; $i++)
@@ -703,15 +705,15 @@ if (isset($_POST['accept_edit']) && isset($validate_test) && $validate_test == t
 	$edit_test_props = mysql_query ("
 
 	UPDATE  `test_list` SET 
-	    `TESTNAME` = '".$_POST['test_name']."',
-		`TESTPASS` = '".$_POST['test_pass']."',
-		`BALL5` = '".$_POST['ball5']."',
-		`BALL4` = '".$_POST['ball4']."',
-		`BALL3` = '".$_POST['ball3']."',
-		`TESTGROUPS` = '".$_POST['test_groups']."',
+	    `TESTNAME` = '".mysql_real_escape_string($_POST['test_name'])."',
+		`TESTPASS` = '".mysql_real_escape_string($_POST['test_pass'])."',
+		`BALL5` = '".mysql_real_escape_string($_POST['ball5'])."',
+		`BALL4` = '".mysql_real_escape_string($_POST['ball4'])."',
+		`BALL3` = '".mysql_real_escape_string($_POST['ball3'])."',
+		`TESTGROUPS` = '".mysql_real_escape_string($_POST['test_groups'])."',
 		`TESTMODE` = '".$new_test_mode."',
-		`TESTDATE` = '".$_POST['test_date']."',
-		`TESTCOUNT` = '".$_POST['test_count']."' WHERE `test_list`.`ID` =".$_GET['editid']) or die ('<h4>полный привет</h4>');
+		`TESTDATE` = '".mysql_real_escape_string($_POST['test_date'])."',
+		`TESTCOUNT` = '".mysql_real_escape_string($_POST['test_count'])."' WHERE `test_list`.`ID` =".mysql_real_escape_string($_GET['editid'])) or die ('<h4>полный привет</h4>');
 
 	echo '	<META HTTP-EQUIV=Refresh CONTENT="0; test_list.php">';
 }

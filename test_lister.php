@@ -117,7 +117,7 @@ if (isset($_GET['testid']))
 //Содержит проверку на количество пройденных тестов и генерирурет порядок вопросов в тесте в случае, если тест можно пройти только 1 раз
 if (isset($_POST['begin']))
 {
-	$load_list = mysql_query("SELECT * FROM TEST_LIST WHERE ID =".$_GET['testid']);
+	$load_list = mysql_query("SELECT * FROM TEST_LIST WHERE ID =".mysql_real_escape_string($_GET['testid']));
 	$test_list = mysql_fetch_assoc($load_list);
 	
 	$test_mode = explode(",",$test_list['TESTMODE']);
@@ -153,7 +153,7 @@ if (isset($_POST['begin']))
 		{
 			$r++;
 		}
-		$load_test_info = mysql_query("SELECT * FROM TEST_LIST WHERE ID=".$_GET['testid']);
+		$load_test_info = mysql_query("SELECT * FROM TEST_LIST WHERE ID=".mysql_real_escape_string($_GET['testid']));
 		$test_info = mysql_fetch_assoc ($load_test_info);
 		
 		if ($test_info['TESTCOUNT'] > $r)
@@ -302,7 +302,7 @@ if (!isset($_GET['testid']) && (!isset($_GET['showid'])))
 //Список содержит информацию о количестве положительно и отрицательно отвеченных вопросов, а также суммарную оценку за тест
 if (isset($_GET['showid']))
 {
-	$load_test_info = mysql_query("SELECT * FROM TEST_LIST WHERE ID=".$_GET['showid']);
+	$load_test_info = mysql_query("SELECT * FROM TEST_LIST WHERE ID=".mysql_real_escape_string($_GET['showid']));
 	$test_info = mysql_fetch_assoc ($load_test_info);
 	echo "<h3>Статистика прохождения теста &quot;".$test_info['TESTNAME']."&quot;</h3>";
 	$load_result_graph = mysql_query ("SELECT * FROM `RESULTS` WHERE `TESTNAME` LIKE '".$test_info['TESTNAME']."' AND `USERNAME` LIKE '".$_SESSION['username']."';") or die ('капец');
