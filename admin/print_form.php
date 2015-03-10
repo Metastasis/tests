@@ -8,42 +8,7 @@ header('Content-Type: text/html; charset=utf-8');
 <head>
 <title>Печатная форма</title>
 <!--таблица стилей, уникальная для этой страницы-->
-<style>
-body {
-	margin: 0 10px;
-	padding:0;
-}
-ul {
-	list-style-type: none;
-	margin:0;
-	padding:0;
-}
-
-ul li {
-	padding:0px;
-	margin:0;
-	margin-top:7px;
-	font-weight:bold;
-}
-
-ul p {
-	margin:0;
-	padding:0;
-	padding-left:30px;
-	text-align:left;
-}
-
-li b {
-	font-weight:bolder;
-}
-
-p {
-	margin:0;
-	padding:0;
-	text-align:center;
-}
-
-</style>
+<link href="style_print.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <?

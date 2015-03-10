@@ -1,7 +1,4 @@
 ﻿<!--Страница работы с полным списком тестов-->
-<?
-header('Content-Type: text/html; charset=utf-8');
-?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"  "http://www.w3.org/TR/html4/strict.dtd">
 <html>
@@ -9,17 +6,6 @@ header('Content-Type: text/html; charset=utf-8');
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Список тестов</title>
 <link href="../style.css" rel="stylesheet" type="text/css" />
-
-<style type="text/css">
-TR {
-text-align: left;
-}
-center {
-padding:0;
-margin:0;
-}
-</style>
-
 <script src="../calendar.js"></script>
 
 </head>
@@ -641,10 +627,9 @@ if ( $_GET['create']=='1' || isset($_GET['editid']))
 		<p>
 		<input type="submit" name="create_test" value=" Создать новый тест ">
 		<input type="submit" name="cancel_action" value=" Отмена "></p>
-		
-		</form>
 		';
 	}
+	echo '</form>';
 }
 
 //Добавление нового теста в таблицу
