@@ -9,19 +9,6 @@ header('Content-Type: text/html; charset=utf-8');
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Панель администрирования</title>
 <link href="../style.css" rel="stylesheet" type="text/css" />
-<link href="result_style.css" rel="stylesheet" type="text/css" />
-
-<style  type="text/css" >
-LI
-{
-	font-weight:bold;
-}
-INPUT
-{
-	margin-left:20px;
-}
-
-</style>
 </head>
 <body  style='overflow-x:hidden;'>
 <div id='pict_box'></div>

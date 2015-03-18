@@ -6,25 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="imagetoolbar" content="no" />
 <link href="../style.css" rel="stylesheet" type="text/css" />
-<STYLE type="text/css">
-#left_content_block
-{
-	float:left;
-	overflow:auto;
-	width:100%;
-	height:780px;
-}
-TH
-{
-	border: 1px solid #556699;
-	font-weight: normal;
-	text-align: left;
-}
-TD
-{
-	border: 1px solid #F5F5FF;
-}
- </STYLE>
 <?php
 require_once '../connect.php';
 require_once '../functions.php';

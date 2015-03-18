@@ -8,20 +8,6 @@ header('Content-Type: text/html; charset=utf-8');
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="style.css" rel="stylesheet" type="text/css" />
-
-<style  type="text/css" >
-LI
-{
-	font-weight:bold;
-}
-INPUT
-{
-	margin-left:20px;
-}
-
-</style>
-
-
 </head>
 <body style='overflow-x:hidden;'>
 

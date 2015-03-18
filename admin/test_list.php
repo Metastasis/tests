@@ -6,17 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Список тестов</title>
 <link href="../style.css" rel="stylesheet" type="text/css" />
-
-<style type="text/css">
-TR {
-text-align: left;
-}
-center {
-padding:0;
-margin:0;
-}
-</style>
-
 <script src="../calendar.js"></script>
 
 </head>
