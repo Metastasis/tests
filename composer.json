@@ -3,6 +3,7 @@
         "phpunit/phpunit": "4.5.*",
         "phpunit/phpunit-selenium": ">=1.2",
         "facebook/webdriver": "dev-master",
-        "fabpot/php-cs-fixer": "2.0.*@dev"
+        "fabpot/php-cs-fixer": "2.0.*@dev",
+        "netwing/selenium-server-standalone": "dev-master"
     }
 }
