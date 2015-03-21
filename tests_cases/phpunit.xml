@@ -14,8 +14,9 @@
         bootstrap                   = "bootstrap.php" >
 
     <testsuites>
-        <testsuite name="Admin Page Functional Testsuite">
+        <testsuite name="Testsuite">
             <directory>./functional</directory>
+			<directory>./mod_tests</directory>
         </testsuite>
     </testsuites>
 
