@@ -215,7 +215,7 @@ if (isset($_GET['spec']))
 		if (isset($_POST['accept_add']))
 		{
 			$validate_add_spec = true;
-			$load_number = mysql_query("SELECT `ID` FROM `speciality` WHERE ID=".mysql_real_escape_string($_POST['spec_num']);
+			$load_number = mysql_query("SELECT `ID` FROM `speciality` WHERE ID=".mysql_real_escape_string($_POST['spec_num']));
 			$load_short = mysql_query("SELECT `ID` FROM `speciality` WHERE `SHORT` LIKE '".mysql_real_escape_string($_POST['spec_short'])."'");
 			
 			if ($_POST['spec_name']=='')
