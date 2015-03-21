@@ -157,11 +157,11 @@ if (!isset($_GET['filter']) && !isset($_GET['formid']))
 	}
 	
 	//Вывод записей на экран
-	$load_list = mysql_query("SELECT * FROM RESULTS ".$filter." ORDER BY ".$order." ".$desc);
+	$load_list = mysqli_query($connect_srv, "SELECT * FROM RESULTS ".$filter." ORDER BY ".$order." ".$desc);
 	if (mysql_num_rows($load_list)>0) 
 	{
 		$j=0;
-		while ($result_list = mysql_fetch_assoc($load_list))
+		while ($result_list = mysqli_fetch_array($load_list, MYSQLI_ASSOC))
 		{		
 			if ( ($j % 2) == 0)
 			{
@@ -207,8 +207,8 @@ if (isset($_GET['deleteid']))
 //Удаляет результат, если это подвтерждено пользователем
 if (isset($_GET['deleteidaccepted']))
 {
-	$delete_test = mysql_query("
-	DELETE FROM `results` WHERE `results`.`ID` = ".mysql_real_escape_string($_GET['deleteidaccepted'])." LIMIT 1 ");
+	$delete_test = mysqli_query($connect_srv, "
+	DELETE FROM `results` WHERE `results`.`ID` = ".$_GET['deleteidaccepted']." LIMIT 1 ");
 	header ('Location: result_list.php');
 }
 
@@ -396,10 +396,10 @@ if (isset($_GET['formid']))
 			<td>
 				<select name="name_spec">';
 	//Создает список, состоящий из кратких названий специальности
-	$load_speciality = mysql_query("SELECT * FROM `speciality` ORDER BY ID DESC") or die ('Ошибка');
+	$load_speciality = mysqli_query($connect_srv, "SELECT * FROM `speciality` ORDER BY ID DESC") or die ('Ошибка');
 	if (mysql_num_rows($load_speciality)>0)
 	{
-		while ($spec_list = mysql_fetch_assoc($load_speciality))
+		while ($spec_list = mysqli_fetch_array($load_speciality, MYSQLI_ASSOC))
 		{
 			echo '<option value="'.$spec_list['ID'].'">'.$spec_list['SHORT'].'</option>';
 		}
@@ -412,10 +412,10 @@ if (isset($_GET['formid']))
 			<td>
 				<select name="name_disc">';
 	//Создает список, состоящий из кратких названий специальности
-	$load_discipline = mysql_query("SELECT * FROM `discipline` ORDER BY ID DESC") or die ('Ошибка');
+	$load_discipline = mysqli_query($connect_srv, "SELECT * FROM `discipline` ORDER BY ID DESC") or die ('Ошибка');
 	if (mysql_num_rows($load_speciality)>0)
 	{
-		while ($disc_list = mysql_fetch_assoc($load_discipline))
+		while ($disc_list = mysqli_fetch_array($load_discipline, MYSQLI_ASSOC))
 		{
 			echo '<option value="'.$disc_list['ID'].'">'.$disc_list['SHORT'].'</option>';
 		}

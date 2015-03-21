@@ -43,7 +43,7 @@ if (!isset($_SESSION['test_table']))
 
 $table_to_find = substr($_SESSION['test_table'], 0, -2);
 $load_test_name = mysql_query ("SELECT * FROM `TEST_LIST` WHERE `TESTTABLE` = '".$table_to_find."'") or die ("капец");
-$test_name = mysql_fetch_assoc ($load_test_name);
+$test_name = mysqli_fetch_array($load_test_name, MYSQLI_ASSOC);
 echo "<title>Редактирование теста &quot;".$test_name['TESTNAME']."&quot;</title>";
 
 if(isset($_GET['close']))
@@ -91,7 +91,7 @@ echo "<h3>Список вопросов теста &quot;".$test_name['TESTNAME'
 <div id='left_big_block'>
 <?php
 //Вывод списка вопросов на экран
-$load_test = mysql_query("SELECT * FROM `".$_SESSION['test_table']."` ORDER BY ID") or die ("эпик фейл");
+$load_test = mysqli_query($connect_srv, "SELECT * FROM `".$_SESSION['test_table']."` ORDER BY ID") or die ("эпик фейл");
 if (mysql_num_rows($load_test)>0) 
 {	
 	echo "
@@ -106,7 +106,7 @@ if (mysql_num_rows($load_test)>0)
 	";
 	$i=1;
 	//Обработка и вывод на экран каждой записи таблицы с помощью цикла
-	while ($answer = mysql_fetch_assoc($load_test))
+	while ($answer = mysqli_fetch_array($load_test, MYSQLI_ASSOC))
 	{
 		//Выбор цвета строки таблицы
 		if ( ($i % 2) == 0)
@@ -180,9 +180,9 @@ if (isset($_GET['move_quest']))
 	{
 		if (isset($_POST['move_first_pos']) && isset($_POST['move_second_pos']) && ($_POST['move_first_pos'] != $_POST['move_second_pos']))
 		{
-			$move_quest_sql1 = mysql_query ("UPDATE  .`".$_SESSION['test_table']."` SET `ID` = '0' WHERE `".$_SESSION['test_table']."`.`ID` =".mysql_real_escape_string($_POST['move_first_pos'])." LIMIT 1") or die ("new кавабанга 1");
-			$move_quest_sql2 = mysql_query ("UPDATE  .`".$_SESSION['test_table']."` SET `ID` = '".mysql_real_escape_string($_POST['move_first_pos'])."' WHERE `".$_SESSION['test_table']."`.`ID` =".mysql_real_escape_string($_POST['move_second_pos'])." LIMIT 1") or die ("new кавабанга 2");
-			$move_quest_sql3 = mysql_query ("UPDATE  .`".$_SESSION['test_table']."` SET `ID` = '".mysql_real_escape_string($_POST['move_second_pos'])."' WHERE `".$_SESSION['test_table']."`.`ID` ='0' LIMIT 1") or die ("new кавабанга 3");
+			$move_quest_sql1 = mysql_query ("UPDATE  .`".$_SESSION['test_table']."` SET `ID` = '0' WHERE `".$_SESSION['test_table']."`.`ID` =".$_POST['move_first_pos']." LIMIT 1") or die ("new кавабанга 1");
+			$move_quest_sql2 = mysql_query ("UPDATE  .`".$_SESSION['test_table']."` SET `ID` = '".$_POST['move_first_pos']."' WHERE `".$_SESSION['test_table']."`.`ID` =".$_POST['move_second_pos']." LIMIT 1") or die ("new кавабанга 2");
+			$move_quest_sql3 = mysql_query ("UPDATE  .`".$_SESSION['test_table']."` SET `ID` = '".$_POST['move_second_pos']."' WHERE `".$_SESSION['test_table']."`.`ID` ='0' LIMIT 1") or die ("new кавабанга 3");
 			
 			echo '<META HTTP-EQUIV=Refresh CONTENT="0; test_edit.php?move_quest=1">';			
 		}
@@ -205,8 +205,8 @@ echo "</form>";
 //Быстрый показ ответов на выделенный вопрос
 if (isset($_GET['showid']))
 {
-	$load_answer = mysql_query("SELECT * FROM ".$_SESSION['test_table']." WHERE ID =".mysql_real_escape_string($_GET['showid']));
-	$show_answer = mysql_fetch_assoc($load_answer);
+	$load_answer = mysqli_query($connect_srv, "SELECT * FROM ".$_SESSION['test_table']." WHERE ID =".$_GET['showid']);
+	$show_answer = mysqli_fetch_array($load_answer, MYSQLI_ASSOC);
 	
 	echo "<div id='right_small_block'>
 	<div id='action_header'><h4 class='header_title' align='center'>Ответы на вопрос №".$_GET['viewid']."</h4></div>";
@@ -505,8 +505,8 @@ if (isset($_POST['cancel_add']))
 //Заголовок блока редактирования
 if (isset($_GET['editquestid']))
 {
-	$load_list = mysql_query("SELECT * FROM ".$_SESSION['test_table']." WHERE ID=".mysql_real_escape_string($_GET['editquestid']));
-	$answer = mysql_fetch_assoc($load_list);
+	$load_list = mysqli_query($connect_srv, "SELECT * FROM ".$_SESSION['test_table']." WHERE ID=".$_GET['editquestid']);
+	$answer = mysqli_fetch_array($load_list, MYSQLI_ASSOC);
 	
 	$class1 = $class2 = $class3 = 'class=nonclicked_button';
 	//Если выбрано действие, то кнопка особенно выделяется
@@ -602,10 +602,10 @@ if (isset($_GET['editquestid']) && ($_GET['editaction']=='1'))
 		$edit_quest_main_params = mysql_query ("
 		UPDATE  .`".$_SESSION['test_table']."` 
 		SET
-		`QUESTION` = '".mysql_real_escape_string($_POST['question'])."',
-		`SELECTTYPE` = '".mysql_real_escape_string($_POST['selecttype'])."',
+		`QUESTION` = '".$_POST['question']."',
+		`SELECTTYPE` = '".$_POST['selecttype']."',
 		`ANSWERS` = '".$writable_answer."'
-		WHERE `".$_SESSION['test_table']."`.`ID` =".mysql_real_escape_string($_GET['editquestid'])." LIMIT 1 ;");
+		WHERE `".$_SESSION['test_table']."`.`ID` =".$_GET['editquestid']." LIMIT 1 ;");
 		echo "Основные настройки вопроса обновлены";
 		
 		echo '<META HTTP-EQUIV=Refresh CONTENT="0; test_edit.php?editquestid='.$_GET['editquestid'].'&viewid='.$_GET['viewid'].'">';
@@ -772,7 +772,7 @@ if (isset($_GET['editquestid']) && ($_GET['editaction']=='2'))
 		UPDATE  .`".$_SESSION['test_table']."` 
 		SET
 		`ANSWERS` = '".$answers."'
-		WHERE `".$_SESSION['test_table']."`.`ID` =".mysql_real_escape_string($_GET['editquestid'])." LIMIT 1 ;");
+		WHERE `".$_SESSION['test_table']."`.`ID` =".$_GET['editquestid']." LIMIT 1 ;");
 				
 		echo '<META HTTP-EQUIV=Refresh CONTENT="0; test_edit.php?editquestid='.$_GET['editquestid'].'&editaction=2&viewid='.$_GET['viewid'].'">';
 	}
@@ -780,8 +780,8 @@ if (isset($_GET['editquestid']) && ($_GET['editaction']=='2'))
 //Удаление ответа из списка
 if (isset($_GET['delanswerid']))
 {
-	$load_list = mysql_query("SELECT * FROM ".$_SESSION['test_table']." WHERE ID=".$_GET['editquestid']);
-	$answer = mysql_fetch_assoc($load_list);
+	$load_list = mysqli_query($connect_srv, "SELECT * FROM ".$_SESSION['test_table']." WHERE ID=".$_GET['editquestid']);
+	$answer = mysqli_fetch_array($load_list, MYSQLI_ASSOC);
 	
 	$answers = explode ("",$answer['ANSWERS']);
 
@@ -810,7 +810,7 @@ if (isset($_GET['delanswerid']))
 	UPDATE  .`".$_SESSION['test_table']."` 
 	SET
 	`ANSWERS` = '".$new_answer."'
-	WHERE `".$_SESSION['test_table']."`.`ID` =".mysql_real_escape_string($_GET['editquestid'])." LIMIT 1 ;");	
+	WHERE `".$_SESSION['test_table']."`.`ID` =".$_GET['editquestid']." LIMIT 1 ;");	
 
 	echo '
 		<META HTTP-EQUIV=Refresh CONTENT="0; test_edit.php?editquestid='.$_GET['editquestid'].'&editaction=2&viewid='.$_GET['viewid'].'">';	
@@ -866,8 +866,8 @@ if (isset($_GET['editquestid']) && ($_GET['editaction']=='3'))
 	//Если поля заполнены правильно, то добавляет ответ к общему списку и перезаписывает их
 	if (isset($_POST['insert_answer']) && $validate_edit_part3 == true)
 	{
-		$load_list = mysql_query("SELECT * FROM ".$_SESSION['test_table']." WHERE ID=".mysql_real_escape_string($_GET['editquestid']));
-		$insert_answer = mysql_fetch_assoc($load_list);
+		$load_list = mysqli_query($connect_srv, "SELECT * FROM ".$_SESSION['test_table']." WHERE ID=".$_GET['editquestid']);
+		$insert_answer = mysqli_fetch_array($load_list, MYSQLI_ASSOC);
 		
 		if ($_POST['right_answer'] == 'right')
 		{
@@ -891,7 +891,7 @@ if (isset($_GET['editquestid']) && ($_GET['editaction']=='3'))
 		UPDATE  .`".$_SESSION['test_table']."` 
 		SET
 		`ANSWERS` = '".$new_answer."'
-		WHERE `".$_SESSION['test_table']."`.`ID` =".mysql_real_escape_string($_GET['editquestid'])." LIMIT 1 ;");
+		WHERE `".$_SESSION['test_table']."`.`ID` =".$_GET['editquestid']." LIMIT 1 ;");
 		
 		echo '
 		<META HTTP-EQUIV=Refresh CONTENT="0; test_edit.php?editquestid='.$_GET['editquestid'].'&editaction=2&viewid='.$_GET['viewid'].'">';
@@ -905,8 +905,8 @@ if (isset($_GET['editquestid']))
 //Удаление вопроса из списка после подвтерждения
 if (isset($_GET['deleteidaccepted']))
 {
-	$delete_answer = mysql_query("
-	DELETE FROM `".$_SESSION['test_table']."` WHERE `".$_SESSION['test_table']."`.`ID` = ".mysql_real_escape_string($_GET['deleteidaccepted'])." LIMIT 1") or die ("не пашет");
+	$delete_answer = mysqli_query($connect_srv, "
+	DELETE FROM `".$_SESSION['test_table']."` WHERE `".$_SESSION['test_table']."`.`ID` = ".$_GET['deleteidaccepted']." LIMIT 1") or die ("не пашет");
 	
 	echo '
 	<META HTTP-EQUIV=Refresh CONTENT="0; URL=test_edit.php">';

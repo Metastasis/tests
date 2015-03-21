@@ -82,8 +82,8 @@ if(isset($_POST['submit']))
 	$validate_test = true;
 	while ($i <= count($_SESSION['id_graph'][$test_graph_id]))
 	{
-		$load_switcher = mysql_query("SELECT * FROM ".$_SESSION['current_test']." WHERE `ID`=".$_SESSION['id_graph'][$test_graph_id][$i]);
-		$switcher = mysql_fetch_assoc($load_switcher);
+		$load_switcher = mysqli_query($connect_srv, "SELECT * FROM ".$_SESSION['current_test']." WHERE `ID`=".$_SESSION['id_graph'][$test_graph_id][$i]);
+		$switcher = mysqli_fetch_array($load_switcher, MYSQLI_ASSOC);
 		$answers = explode ("",$switcher['ANSWERS']); //
 		$ans_limit = count ($answers);
 		if ($switcher['SELECTTYPE'] == 'radio')
@@ -135,8 +135,8 @@ if (!isset($_POST['submit']))
 	$i=0;
 	while ($i <= count($_SESSION['id_graph'][$test_graph_id]))
 	{
-		$load_test = mysql_query("SELECT * FROM ".$_SESSION['current_test']." WHERE `ID`=".$_SESSION['id_graph'][$test_graph_id][$i]);
-		$quest = mysql_fetch_assoc($load_test);
+		$load_test = mysqli_query($connect_srv, "SELECT * FROM ".$_SESSION['current_test']." WHERE `ID`=".$_SESSION['id_graph'][$test_graph_id][$i]);
+		$quest = mysqli_fetch_array($load_test, MYSQLI_ASSOC);
 		$answers = explode ("",$quest['ANSWERS']); //
 		
 		if ($quest['SELECTTYPE']=='radio') 
@@ -213,8 +213,8 @@ else
 	$unsetted_answer = false;
 	while ($i <= count($_SESSION['id_graph'][$test_graph_id]))
 	{
-		$load_test = mysql_query("SELECT * FROM ".$_SESSION['current_test']." WHERE `ID`=".$_SESSION['id_graph'][$test_graph_id][$i]);
-		$quest = mysql_fetch_assoc($load_test);
+		$load_test = mysqli_query($connect_srv, "SELECT * FROM ".$_SESSION['current_test']." WHERE `ID`=".$_SESSION['id_graph'][$test_graph_id][$i]);
+		$quest = mysqli_fetch_array($load_test, MYSQLI_ASSOC);
 		
 		$answers = explode ("",$quest['ANSWERS']);
 		$max_answers++;
@@ -315,15 +315,15 @@ else
 	$test_log .= "</ul>";	
 		
 	
-	$check_date = mysql_query("SELECT NOW()");
-	$mas_current_date = mysql_fetch_assoc($check_date);
+	$check_date = mysqli_query($connect_srv, "SELECT NOW()");
+	$mas_current_date = mysqli_fetch_array($check_date, MYSQLI_ASSOC);
 	$current_date = $mas_current_date ["NOW()"];
 	
 	$all_answers = $fail_answers + $right_answers;
 	$right_percent = ($right_answers * 100) / ($all_answers);
 	
-	$load_list = mysql_query("SELECT * FROM `test_list` WHERE `TESTNAME` = '".$_SESSION['current_test_name']."'") or die ("капец");
-	$test_list = mysql_fetch_assoc($load_list);
+	$load_list = mysqli_query($connect_srv, "SELECT * FROM `test_list` WHERE `TESTNAME` = '".$_SESSION['current_test_name']."'") or die ("капец");
+	$test_list = mysqli_fetch_array($load_list, MYSQLI_ASSOC);
 
 	if ($right_percent > $test_list['BALL5']) { $final_ball = 5;}
 	elseif ($right_percent > $test_list['BALL4']) { $final_ball = 4;}
@@ -332,7 +332,7 @@ else
 			
 	if (isset($_SESSION['id_graph']))
 	{
-		$write_result = mysql_query ("INSERT INTO  .`results` (`ID`, `USERNAME`, `TESTNAME`, `TESTDATE`, `RESRIGHT`, `RESALL`, `RESBALL`, `TESTLOG`)
+		$write_result = mysqli_query($connect_srv, "INSERT INTO  .`results` (`ID`, `USERNAME`, `TESTNAME`, `TESTDATE`, `RESRIGHT`, `RESALL`, `RESBALL`, `TESTLOG`)
 		VALUES (NULL, '".$_SESSION['username']."', '".$_SESSION['current_test_name']."', '".$current_date."', '".$right_answers."', '".$all_answers."', '".$final_ball."', '".$test_log."');")
 				
 		or die ("<script>alert('Ошибка записи теста! Рекомендуется не закрывать данную страницу и обратиться к администратору, иначе результаты прохождения теста будут утеряны.')</script>");

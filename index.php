@@ -49,16 +49,16 @@ require_once 'functions.php';
 //Проверяет существование пользователя, его пароль и по группе перенаправляет на нужную страницу
 if(isset($_POST['submit']))
 {
-    $query = mysql_query("SELECT * FROM USERS WHERE USERNAME='".mysql_real_escape_string($_POST['user_name'])."' LIMIT 1");
-    $data = mysql_fetch_assoc($query);
+    $query = mysqli_query($connect_srv, "SELECT * FROM USERS WHERE USERNAME='".mysqli_real_escape_string($connect_srv, $_POST['user_name'])."' LIMIT 1");
+    $data = mysqli_fetch_array($query, MYSQLI_ASSOC);
 	
 	
 	if (($_SESSION['stats']['login_errors']>=$log_check_login_count) && ($_SESSION['stats']['login_error_writed'] != true)) 
 		{
 			//if (($log_check_login_user_only == false && $data['USERGROUP']==$admin_write) || ($log_check_login_user_only == true && $data['USERGROUP']!=$admin_write))
 			
-			$check_date = mysql_query("SELECT NOW()");
-			$mas_current_date = mysql_fetch_assoc($check_date);
+			$check_date = mysqli_query($connect_srv, "SELECT NOW()");
+			$mas_current_date = mysqli_fetch_array($check_date, MYSQLI_ASSOC);
 			$current_date = $mas_current_date ["NOW()"];
 			
 			$log_file = fopen ("data/useractionlog.txt","a+");

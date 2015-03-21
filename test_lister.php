@@ -52,8 +52,8 @@ if(isset($_GET['close']))
 }
 
 //Текущая дата
-$check_date = mysql_query("SELECT NOW()");
-$mas_current_date = mysql_fetch_assoc($check_date);
+$check_date = mysqli_query($connect_srv, "SELECT NOW()");
+$mas_current_date = mysqli_fetch_array($check_date, MYSQLI_ASSOC);
 $current_date = substr ($mas_current_date ["NOW()"],0,10);
 $current_date_for_view = convert_data_for_user ($current_date);
 
@@ -62,8 +62,8 @@ $current_date_for_view = convert_data_for_user ($current_date);
 //Предварительная проверка параметров теста
 if (isset($_GET['testid']))
 {
-	$load_list = mysql_query("SELECT * FROM `TEST_LIST` WHERE `ID`=".mysql_real_escape_string($_GET['testid']));
-	$test_list = mysql_fetch_assoc ($load_list);
+	$load_list = mysqli_query($connect_srv, "SELECT * FROM `TEST_LIST` WHERE `ID`=".$_GET['testid']);
+	$test_list = mysqli_fetch_array($load_list, MYSQLI_ASSOC);
 	
 	
 	$test_mode = explode(",",$test_list['TESTMODE']);
@@ -109,8 +109,8 @@ if (isset($_GET['testid']))
 //Содержит проверку на количество пройденных тестов и генерирурет порядок вопросов в тесте в случае, если тест можно пройти только 1 раз
 if (isset($_POST['begin']))
 {
-	$load_list = mysql_query("SELECT * FROM TEST_LIST WHERE ID =".mysql_real_escape_string($_GET['testid']));
-	$test_list = mysql_fetch_assoc($load_list);
+	$load_list = mysqli_query($connect_srv, "SELECT * FROM TEST_LIST WHERE ID =".$_GET['testid']);
+	$test_list = mysqli_fetch_array($load_list, MYSQLI_ASSOC);
 	
 	$test_mode = explode(",",$test_list['TESTMODE']);
 	
@@ -139,14 +139,14 @@ if (isset($_POST['begin']))
 	
 	if ($data_accepted == 1)
 	{
-		$load_result_graph = mysql_query ("SELECT * FROM `RESULTS` WHERE `TESTNAME` LIKE '".$test_list['TESTNAME']."' AND `USERNAME` LIKE '".$_SESSION['username']."';") or die ('error');
+		$load_result_graph = mysqli_query($connect_srv, "SELECT * FROM `RESULTS` WHERE `TESTNAME` LIKE '".$test_list['TESTNAME']."' AND `USERNAME` LIKE '".$_SESSION['username']."';");
 		$r = 0;
-		while ($result = mysql_fetch_assoc($load_result_graph))
+		while ($result = mysqli_fetch_array($load_result_graph, MYSQLI_ASSOC))
 		{
 			$r++;
 		}
-		$load_test_info = mysql_query("SELECT * FROM TEST_LIST WHERE ID=".mysql_real_escape_string($_GET['testid']));
-		$test_info = mysql_fetch_assoc ($load_test_info);
+		$load_test_info = mysqli_query($connect_srv, "SELECT * FROM TEST_LIST WHERE ID=".$_GET['testid']);
+		$test_info = mysqli_fetch_array($load_test_info, MYSQLI_ASSOC);
 		
 		if ($test_info['TESTCOUNT'] > $r)
 		{
@@ -192,9 +192,9 @@ if (isset($_POST['begin']))
 				{
 					$random_id = 'ID';
 				}
-				$load_test = mysql_query("SELECT `ID` FROM ".$test_info['TESTTABLE']."_".$final_variant." ORDER BY ".$random_id." ") or die ("<h4>Ошибка генерации теста.</h4>");
+				$load_test = mysqli_query($connect_srv, "SELECT `ID` FROM ".$test_info['TESTTABLE']."_".$final_variant." ORDER BY ".$random_id." ");
 				$i = 0;
-				while ($quest = mysql_fetch_assoc($load_test))
+				while ($quest = mysqli_fetch_array($load_test, MYSQLI_ASSOC))
 				{
 					$_SESSION['id_graph'][$test_info['TESTTABLE']][$i] = $quest['ID'];
 					$i++;
@@ -224,8 +224,8 @@ if (isset($_POST['begin']))
 //Содержит ссылку на просмотр результатов предыдущих прохождений выбранного теста и ссылку на запуск теста
 if (!isset($_GET['testid']) && (!isset($_GET['showid'])))
 {
-	$load_list = mysql_query("SELECT * FROM TEST_LIST ORDER BY ID");
-	if (mysql_num_rows($load_list)>0) 
+	$load_list = mysqli_query($connect_srv, "SELECT * FROM TEST_LIST ORDER BY ID");
+	if (mysqli_num_rows($load_list)>0) 
 	{
 		echo '
 		<h3>Доступные тесты на '.$current_date_for_view.'</h3>
@@ -237,7 +237,7 @@ if (!isset($_GET['testid']) && (!isset($_GET['showid'])))
 		</tr>
 		';
 		$j = 0;
-		while ($test_list = mysql_fetch_assoc($load_list))
+		while ($test_list = mysqli_fetch_array($load_list, MYSQLI_ASSOC))
 		{				
 			if ( ($j % 2) == 0)
 			{
@@ -262,9 +262,9 @@ if (!isset($_GET['testid']) && (!isset($_GET['showid'])))
 			$test_mode = explode(",",$test_list['TESTMODE']);
 			if (($test_mode[0] == 'ACTIVE_ON' || $test_mode[0] == 'ACTIVE_LOCK') && isset($group_exists))
 			{
-				$load_result_graph = mysql_query ("SELECT * FROM `RESULTS` WHERE `TESTNAME` LIKE '".$test_list['TESTNAME']."' AND `USERNAME` LIKE '".$_SESSION['username']."';") or die ('error');
+				$load_result_graph = mysqli_query($connect_srv, "SELECT * FROM `RESULTS` WHERE `TESTNAME` LIKE '".$test_list['TESTNAME']."' AND `USERNAME` LIKE '".$_SESSION['username']."';");
 				$r = 0;
-				while ($result = mysql_fetch_assoc($load_result_graph))
+				while ($result = mysqli_fetch_array($load_result_graph, MYSQLI_ASSOC))
 				{
 					$r++;
 				}
@@ -294,12 +294,12 @@ if (!isset($_GET['testid']) && (!isset($_GET['showid'])))
 //Список содержит информацию о количестве положительно и отрицательно отвеченных вопросов, а также суммарную оценку за тест
 if (isset($_GET['showid']))
 {
-	$load_test_info = mysql_query("SELECT * FROM TEST_LIST WHERE ID=".mysql_real_escape_string($_GET['showid']));
-	$test_info = mysql_fetch_assoc ($load_test_info);
+	$load_test_info = mysqli_query($connect_srv, "SELECT * FROM TEST_LIST WHERE ID=".$_GET['showid']);
+	$test_info = mysqli_fetch_array($load_test_info, MYSQLI_ASSOC);
 	echo "<h3>Статистика прохождения теста &quot;".$test_info['TESTNAME']."&quot;</h3>";
-	$load_result_graph = mysql_query ("SELECT * FROM `RESULTS` WHERE `TESTNAME` LIKE '".$test_info['TESTNAME']."' AND `USERNAME` LIKE '".$_SESSION['username']."';") or die ('капец');
+	$load_result_graph = mysqli_query($connect_srv, "SELECT * FROM `RESULTS` WHERE `TESTNAME` LIKE '".$test_info['TESTNAME']."' AND `USERNAME` LIKE '".$_SESSION['username']."';");
 	
-	if (mysql_num_rows($load_result_graph)>0) 
+	if (mysqli_num_rows($load_result_graph)>0) 
 	{
 		
 		echo "
@@ -312,7 +312,7 @@ if (isset($_GET['showid']))
 		</tr>
 			";
 		$j=0;
-		while ($result_graph = mysql_fetch_assoc($load_result_graph))
+		while ($result_graph = mysqli_fetch_array($test_info, MYSQLI_ASSOC))
 		{
 			if ( ($j % 2) == 0)
 			{

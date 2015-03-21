@@ -20,17 +20,17 @@ require_once '../functions.php';
 echo "<p><b>".PGPK."</b></p>";
 
 //Вывод специальности на экран. Зависит от выбранного краткого названия в списке, находящимся на  прошлой странице
-$load_speciality = mysql_query ("SELECT * FROM `speciality` WHERE `ID`=".mysql_real_escape_string($_GET['name_spec'])) or die ('Ошибка');
-$spec_list = mysql_fetch_assoc($load_speciality);
+$load_speciality = mysqli_query($connect_srv, "SELECT * FROM `speciality` WHERE `ID`=".$_GET['name_spec']) or die ('Ошибка');
+$spec_list = mysqli_fetch_array($load_speciality, MYSQLI_ASSOC);
 echo "<p>Специальность: ".$spec_list['ID']." &quot;".$spec_list['NAME']."&quot;</p>";
 
 //Вывод дисциплины на экран. Зависит от выбранного краткого названия в списке, находящимся на  прошлой странице
-$load_discipline = mysql_query ("SELECT * FROM `discipline` WHERE `ID`=".mysql_real_escape_string($_GET['name_disc'])) or die ('Ошибка');
+$load_discipline = mysqli_query($connect_srv, "SELECT * FROM `discipline` WHERE `ID`=".$_GET['name_disc']) or die ('Ошибка');
 $disc_list = mysql_fetch_assoc($load_discipline);
 echo "<p>Дисциплина: &quot;".$disc_list['NAME']."&quot;</p>";
 
 //Загрузка нужной записи из базы данных
-$load_result = mysql_query ('SELECT * FROM RESULTS WHERE ID='.mysql_real_escape_string($_GET['formid'])) or die ('Ошибка!');
+$load_result = mysqli_query($connect_srv, 'SELECT * FROM RESULTS WHERE ID='.$_GET['formid']) or die ('Ошибка!');
 $result_list = mysql_fetch_assoc($load_result);
 
 //Вывод заголовка и даты
@@ -44,7 +44,7 @@ else
 	echo "</p>";
 }
 //Вывод информации о пользователе
-$load_user =  mysql_query ("SELECT * FROM USERS WHERE `USERNAME`='".$result_list['USERNAME']."'") or die ('Ошибка!');
+$load_user =  mysqli_query($connect_srv, "SELECT * FROM USERS WHERE `USERNAME`='".$result_list['USERNAME']."'") or die ('Ошибка!');
 $user_list = mysql_fetch_assoc($load_user);
 
 echo "<p>Студент: ".$user_list['USERNAME'].", ";

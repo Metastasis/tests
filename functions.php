@@ -135,8 +135,8 @@ function convert_data_for_log ($init_date)
 //Нужно для защиты от взлома системы
 function write_entry_attention($user_ip)
 {
-	$check_date = mysql_query("SELECT NOW()");
-	$mas_current_date = mysql_fetch_assoc($check_date);
+	$check_date = mysqli_query($connect_srv, "SELECT NOW()");
+	$mas_current_date = mysqli_fetch_array($check_date, MYSQLI_ASSOC);
 	$current_date = $mas_current_date ["NOW()"];
 	
 	$log_file = fopen ("data/useractionlog.txt","a+");

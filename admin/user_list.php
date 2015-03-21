@@ -140,11 +140,11 @@ if (!isset($_GET['create']) && !isset($_GET['editid']) && !isset($_GET['import']
 	{
 		$filter = '';
 	}
-	$load_list = mysql_query("SELECT * FROM USERS ".$filter." ORDER BY ".$order." ".$desc."");
+	$load_list = mysqli_query($connect_srv, "SELECT * FROM USERS ".$filter." ORDER BY ".$order." ".$desc."");
 	if (mysql_num_rows($load_list)>0) 
 	{
 		$j=0;
-		while ($user_list = mysql_fetch_assoc($load_list))
+		while ($user_list = mysqli_fetch_array($load_list, MYSQLI_ASSOC))
 		{
 			if ($user_list['USERGROUP'] == $admin_write)
 			{
@@ -196,8 +196,8 @@ if (isset($_GET['deleteid']))
 //Удаление пользователя из списка. Работает после подтверждения
 if (isset($_GET['deleteidaccepted']))
 {
-	$delete_user = mysql_query("
-	DELETE FROM `users` WHERE `users`.`ID` = ".mysql_real_escape_string($_GET['deleteidaccepted'])." LIMIT 1 ");
+	$delete_user = mysqli_query($connect_srv, "
+	DELETE FROM `users` WHERE `users`.`ID` = ".$_GET['deleteidaccepted']." LIMIT 1 ");
 	echo '<META HTTP-EQUIV=Refresh CONTENT="0; user_list.php">';
 }	
 
@@ -445,7 +445,7 @@ if (isset($_POST['accept_import']))
 				{
 					$data[3] = 1;
 				}
-				$import_csv = mysql_query("
+				$import_csv = mysqli_query($connect_srv, "
 				INSERT INTO  .`users` 
 				VALUES (NULL , '".$data[0]."', '".$data[1]."', '".$data[2]."', '".$data[3]."'); ");
 				
@@ -470,7 +470,7 @@ if (isset($_GET['create']) || isset($_GET['editid']))
 	//Проверка правильности ввода значений
 	if (isset($_POST['create_user']) || isset($_POST['edit_user']))
 	{
-		$usernames = mysql_query ("SELECT `ID` FROM USERS WHERE `USERNAME` LIKE '".mysql_real_escape_string($_POST['username'])."'"); 
+		$usernames = mysql_query ("SELECT `ID` FROM USERS WHERE `USERNAME` LIKE '".$_POST['username']."'"); 
 		
 		$validate_user_list = true;
 		if ($_POST['username']== '')
@@ -504,7 +504,7 @@ if (isset($_GET['create']) || isset($_GET['editid']))
 			{
 				
 				$str = 0;
-				while ($ids = mysql_fetch_assoc($usernames))
+				while ($ids = mysqli_fetch_array($usernames, MYSQLI_ASSOC))
 				{
 					$str++;
 					if ($ids['ID'] == $_GET['editid'])
@@ -529,8 +529,8 @@ if (isset($_GET['create']) || isset($_GET['editid']))
 	//Автоматическое заполнение форм ввода. Работает только в случаех, если пользователь редактируется, или поля были заполнены неправильно
 	if (isset($_GET['editid']))
 	{
-		$load_list = mysql_query("SELECT * FROM USERS WHERE ID=".mysql_real_escape_string($_GET['editid']));
-		$user_list = mysql_fetch_assoc($load_list);
+		$load_list = mysqli_query($connect_srv, "SELECT * FROM USERS WHERE ID=".$_GET['editid']);
+		$user_list = mysqli_fetch_array($load_list, MYSQLI_ASSOC);
 		
 		$value_username = "value='".$user_list['USERNAME']."'";
 		$value_userpass = "value='".$user_list['USERPASS']."'";
@@ -643,13 +643,13 @@ if (isset($_POST['edit_user']) && $validate_user_list == true)
 	{
 		$_POST['usergroup'] = $admin_write;
 	}
-	$edit_user = mysql_query("
+	$edit_user = mysqli_query($connect_srv, "
 	UPDATE  .`users`
-		SET `USERNAME` = '".mysql_real_escape_string($_POST['username'])."',
-	`USERPASS` = '".mysql_real_escape_string($_POST['userpass'])."',
-	`USERGROUP` = '".mysql_real_escape_string($_POST['usergroup'])."',
-	`USERVARIANT` = '".mysql_real_escape_string($_POST['uservariant'])."'
-	WHERE `users`.`ID` =".mysql_real_escape_string($_GET['editid'])." LIMIT 1 ;");
+	SET `USERNAME` = '".$_POST['username']."',
+	`USERPASS` = '".$_POST['userpass']."',
+	`USERGROUP` = '".$_POST['usergroup']."',
+	`USERVARIANT` = '".$_POST['uservariant']."'
+	WHERE `users`.`ID` =".$_GET['editid']." LIMIT 1 ;");
 	echo '<META HTTP-EQUIV=Refresh CONTENT="0; user_list.php">';
 	
 }
@@ -670,12 +670,9 @@ if (isset($_POST['create_user']) && $validate_user_list == true)
 		$_POST['usergroup'] = str_replace (","," ",$_POST['usergroup']);
 	}
 	
-	$create_user = mysql_query("
+	$create_user = mysqli_query($connect_srv, "
 	INSERT INTO  .`users` 
-	VALUES (NULL , '".mysql_real_escape_string($_POST['username'])."',
-	'".mysql_real_escape_string($_POST['userpass'])."',
-	'".mysql_real_escape_string($_POST['usergroup'])."',
-	'".mysql_real_escape_string($_POST['uservariant'])."'); ")or die ("ошибка");
+	VALUES (NULL , '".$_POST['username']."', '".$_POST['userpass']."', '".$_POST['usergroup']."', '".$_POST['uservariant']."'); ")or die ("ошибка");
 	header ('Location: user_list.php');
 }
 
