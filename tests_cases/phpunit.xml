@@ -16,7 +16,7 @@
     <testsuites>
         <testsuite name="Testsuite">
             <directory>./functional</directory>
-			<directory>./mod_tests</directory>
+						<directory>./mod_tests</directory>
         </testsuite>
     </testsuites>
 
